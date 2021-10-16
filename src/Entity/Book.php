@@ -18,19 +18,19 @@ class Book
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=80)
      */
-    private $ImgCover;
+    private $Title;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $Release_Date;
+    private $ReleaseDate;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private $Description;
 
     /**
      * @ORM\Column(type="string", length=80)
@@ -40,45 +40,55 @@ class Book
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $Genre;
+    private $Kind;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Available;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Picture;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getImgCover(): ?string
+    public function getTitle(): ?string
     {
-        return $this->ImgCover;
+        return $this->Title;
     }
 
-    public function setImgCover(?string $ImgCover): self
+    public function setTitle(string $Title): self
     {
-        $this->ImgCover = $ImgCover;
+        $this->Title = $Title;
 
         return $this;
     }
-
+    
     public function getReleaseDate(): ?\DateTimeInterface
     {
-        return $this->Release_Date;
+        return $this->ReleaseDate;
     }
 
-    public function setReleaseDate(\DateTimeInterface $Release_Date): self
+    public function setReleaseDate(\DateTimeInterface $ReleaseDate): self
     {
-        $this->Release_Date = $Release_Date;
+        $this->ReleaseDate = $ReleaseDate;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->description;
+        return $this->Description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string $Description): self
     {
-        $this->description = $description;
+        $this->Description = $Description;
 
         return $this;
     }
@@ -95,14 +105,38 @@ class Book
         return $this;
     }
 
-    public function getGenre(): ?string
+    public function getKind(): ?string
     {
-        return $this->Genre;
+        return $this->Kind;
     }
 
-    public function setGenre(string $Genre): self
+    public function setKind(string $Kind): self
     {
-        $this->Genre = $Genre;
+        $this->Kind = $Kind;
+
+        return $this;
+    }
+
+    public function getAvailable(): ?bool
+    {
+        return $this->Available;
+    }
+
+    public function setAvailable(bool $Available): self
+    {
+        $this->Available = $Available;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->Picture;
+    }
+
+    public function setPicture(string $Picture): self
+    {
+        $this->Picture = $Picture;
 
         return $this;
     }
