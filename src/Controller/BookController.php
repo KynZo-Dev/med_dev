@@ -2,50 +2,86 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BookController extends AbstractController
 {
-    #[Route('/catalogues', name: 'catalogues')]
+    #[Route('/catalogues', name: 'app_catalogues')]
     public function index(BookRepository $repo): Response
     {
         return $this->render('book/book.html.twig', [
             'books' => $repo->findAll(),
         ]);
     }
-    #[Route('/catalogues/create', name: 'create', methods: ['GET','POST'])]
+
+    #[Route('/catalogues/create', name: 'app_create', methods: ['GET','POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createFormBuilder()
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
             ->add('description', TextareaType::class)
             ->add('author', TextType::class)
             ->add('kind', TextType::class)
-            ->add('releasedate', DateType::class)
+            ->add('releasedate', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+            ])
             ->add('available', ChoiceType::class, [
-                'choises' => [
+                'choices' => [
                     'Disponible' => true,
-                    'Non disponible' => false,
+                    'Réserver' => false,
                 ]
             ])
-            ->add('picture', FileType::class)
-            ->add('submit', SubmitType::class, ['label' => 'Ajouté un livre'])
+            ->add('picture', TextType::class)
             ->getForm()
+            ;
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+
+                $book = new Book;
+                $book->setTitle($data['title']);
+                $book->setDescription($data['description']);
+                $book->setAuthor($data['author']);
+                $book->setKind($data['kind']);
+                $book->setReleaseDate($data['releasedate']);
+                $book->setAvailable($data['available']);
+                $book->setPicture($data['picture']);
+                $em->persist($book);
+                $em->flush();
+
+                return $this->redirectToRoute('app_show', ['id' => $book->getId()]);
+            }
         ;
         return $this->render('book/createbook.html.twig', [
             'controller_name' => 'CreateBookController',
-            'createFormulaire' => $form->createView()
+            'createBook' => $form->createView()
         ]);
+    }
+
+    #[Route('/catalogues/{id}', name: 'app_show')]
+    public function show(BookRepository $repo, int $id): Response
+    {
+        $book = $repo->find($id);
+
+        if ($book === null) {
+            throw $this->createNotFoundException( 'Pas de livre #' . $id . ' trouvé');
+        }
+
+        return $this->render('book/show.html.twig', compact('book'));
     }
 }

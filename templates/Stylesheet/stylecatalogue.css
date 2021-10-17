@@ -1,0 +1,32 @@
+.header {
+    display: table;
+    height: 10em;
+    width: 100%;
+    background-image: url("img/bibliotheque_agde.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.h1 {
+    color: black;
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 100%;
+    padding-left: 2em;
+}
+table {
+    box-shadow: 0px 10px 10px grey;
+}
+main {
+    padding: 2em;
+    width: 100%;
+}
+nav {
+    box-shadow: 0px 10px 10px grey;
+}
+footer {
+    box-shadow: 0px -10px 10px grey;
+    padding-top: 0.8em;
+    text-align: center;
+    height: 3em;
+}
