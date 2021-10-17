@@ -49,32 +49,32 @@
         </div>
     </nav>
     <main>
-      <div class="row">
-        <!-- Titre des cartes -->
-        <h2 class="col-12">Catalogue</h2>
-        {% for book in books %}
-        <div class="col-4">
-          <!-- 1er cartes -->
-          <div class="card">
-            <!-- Image de la 1er carte -->
-            <a href="#"><img src="{{ book.picture }}" alt="IMG"></a>
-            <!-- corp de la 1er carte -->
-            <div class="card-body">
-              <!-- Titre de la 1er carte -->
-              <div class="card-title">
-                <h3><a href="{{ path('app_show', {'id': book.id})}}">{{ book.title }}</a></h3>
-                <!-- Barre de progrès de la 1er carte -->
-                <!-- Text de la 1er carte -->
-                <p class="card-text">
-                    {{ book.description }}<br>
-                    {{ book.author }}<br>
-                    {{ book.kind }}<br>
-                    {{ book.releasedate|date('d-m-Y') }}<br>
-                    {{ book.available }}<br>
-                </p>
-              </div>
+        <div class="row">
+            <!-- Titre des cartes -->
+            <h2 class="col-12">Catalogues de {{ pluralize(books|length,'Livre', 'Livres') }}</h2>
+            {% for book in books %}
+            <div class="col-4">
+            <!-- 1er cartes -->
+                <div class="card">
+                    <!-- Image de la 1er carte -->
+                    <a href="#"><img src="{{ book.picture }}" alt="IMG"></a>
+                    <!-- corp de la 1er carte -->
+                    <div class="card-body">
+                    <!-- Titre de la 1er carte -->
+                    <div class="card-title">
+                        <h3><a href="{{ path('app_show', {'id': book.id})}}">{{ book.title }}</a></h3>
+                        <!-- Barre de progrès de la 1er carte -->
+                        <!-- Text de la 1er carte -->
+                        <p class="card-text">
+                            {{ book.description }}<br>
+                            {{ book.author }}<br>
+                            {{ book.kind }}<br>
+                            {{ book.releasedate|date('d-m-Y') }}<br>
+                            {{ book.available }}<br>
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         {% else %}
           <p>délosé, Pas de livres !</p>
