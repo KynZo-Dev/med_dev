@@ -25,6 +25,13 @@ class BookController extends AbstractController
         ]);
     }
 
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        return $this->render('about.html.twig', [
+        ]);
+    }
+
     #[Route('/catalogues/create', name: 'app_create', methods: ['GET','POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
