@@ -7,18 +7,16 @@
 {% block body %}
     <main>
       <div class="row">
-        <!-- Titre des cartes -->
-        <h2 class="col-12">{{ book.title }}</h2>
         <div class="col-4">
           <!-- 1er cartes -->
           <div class="card">
             <!-- Image de la 1er carte -->
-            <a href="#"><img src="{{ book.picture }}" alt="IMG"></a>
+            <img src="{{ book.picture }}" alt="IMG">
             <!-- corp de la 1er carte -->
             <div class="card-body">
               <!-- Titre de la 1er carte -->
               <div class="card-title">
-                <h3></h3>
+                <h2>{{ book.title }}</h2>
                 <!-- Barre de progrès de la 1er carte -->
                 <!-- Text de la 1er carte -->
                 <p class="card-text">
