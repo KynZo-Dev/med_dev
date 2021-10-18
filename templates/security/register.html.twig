@@ -7,15 +7,6 @@
 {% block stylesheets %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 {% endblock %}
-
-{% block javascripts %}
-    <script>
-        $(document).ready(function() {
-        // you may need to change this code if you are not using Bootstrap Datepicker
-            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
-        });
-    </script>
-{% endblock %}
     
 {% block body %}
     <h1>Inscription</h1>
@@ -23,5 +14,14 @@
         {{ form_widget(registerform) }}
         <button type="submit" class="btn btn-primary">s'enregistré</button>
     {{ form_end(registerform) }}
-    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+        // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+        });
+    </script>
 {% endblock %}

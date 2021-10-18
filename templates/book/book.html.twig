@@ -56,25 +56,25 @@
                     <a href="#"><img src="{{ book.picture }}" alt="IMG"></a>
                     <!-- corp de la 1er carte -->
                     <div class="card-body">
-                    <!-- Titre de la 1er carte -->
-                    <div class="card-title">
-                        <h3><a href="{{ path('app_show', {'id': book.id})}}">{{ book.title }}</a></h3>
-                        <!-- Barre de progrès de la 1er carte -->
-                        <!-- Text de la 1er carte -->
-                        <p class="card-text">
-                            {{ book.description }}<br>
-                            {{ book.author }}<br>
-                            {{ book.kind }}<br>
-                            {{ book.releasedate|date('d-m-Y') }}<br>
-                            {{ book.available }}<br>
-                        </p>
+                        <!-- Titre de la 1er carte -->
+                        <div class="card-title">
+                            <h3><a href="{{ path('app_show', {'id': book.id})}}">{{ book.title }}</a></h3>
+                            <!-- Barre de progrès de la 1er carte -->
+                            <!-- Text de la 1er carte -->
+                            <p class="card-text">
+                                {{ book.description }}<br>
+                                {{ book.author }}<br>
+                                {{ book.kind }}<br>
+                                {{ book.releasedate|date('d-m-Y') }}<br>
+                                {{ book.available }}<br>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+            {% else %}
+                <p>délosé, Pas de livres !</p>
+            {% endfor %}
         </div>
-        {% else %}
-          <p>délosé, Pas de livres !</p>
-        {% endfor %}
-      </div>
     </main>
 {% endblock %}
