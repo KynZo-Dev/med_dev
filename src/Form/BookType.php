@@ -13,7 +13,11 @@ class BookType extends AbstractType
     {
         $builder
             ->add('Title')
-            ->add('ReleaseDate')
+            ->add('ReleaseDate', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+            ])
             ->add('Description')
             ->add('Author')
             ->add('Kind')

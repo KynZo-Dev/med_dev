@@ -18,10 +18,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser()) {            
             return $this->redirectToRoute('app_catalogues');
         }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -37,31 +36,5 @@ class SecurityController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
-
-    /**
-     * @Route("/register", name="app_register")
-     */
-    public function register(Request $request, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $em): Response
-    {
-        $register = $this->createForm(LoginType::class);
-        $register->handleRequest($request);
-        if ($register->isSubmitted() && $register->isValid()) {
-            $user = $register->getData();
-            $plainPassword = $register->get('password')->getData();
-
-            $user->setPassword($passwordEncoder->hashPassword($user, $plainPassword));
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success', 'User successfully created!');
-
-            return $this->redirectToRoute('app_login');
-        };
-
-        return $this->render('security/register.html.twig', [
-            'registerform' => $register->createView()
-        ]);
     }
 }

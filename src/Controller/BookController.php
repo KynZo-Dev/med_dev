@@ -39,7 +39,7 @@ class BookController extends AbstractController
     #[Route('/create', name: 'app_create', methods: ['GET','POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_MODO');
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createFormBuilder()
             ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
             ->add('description', TextareaType::class)

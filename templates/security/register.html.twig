@@ -1,27 +1,42 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}
-    Médiatheque Click&collect Inscription
-{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block stylesheets %}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 {% endblock %}
-    
+
 {% block body %}
-    <h1>Inscription</h1>
-    {{ form_start(registerform) }}
-        {{ form_widget(registerform) }}
-        <button type="submit" class="btn btn-primary">s'enregistré</button>
-    {{ form_end(registerform) }}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="mt-5 mb-3 text-center">Register</h1>
+            <p class="mb-2 text-center text-muted">Des livres vous attende avec impatience</p>
+
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.lastname) }}
+                {{ form_row(registrationForm.firstname) }}
+                {{ form_row(registrationForm.birthdays) }}
+                {{ form_row(registrationForm.adress) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button type="submit" class="btn btn-lg btn-primary">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.fr.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
-        // you may need to change this code if you are not using Bootstrap Datepicker
-            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
         });
     </script>
 {% endblock %}
