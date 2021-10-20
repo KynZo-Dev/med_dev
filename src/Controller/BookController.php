@@ -14,32 +14,40 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class BookController extends AbstractController
 {
-    #[Route('/', name: 'app_catalogues')]
+    #[Route('/', name: 'app_home')]
     public function index(BookRepository $repo): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('book/book.html.twig', [
+        return $this->render('home.html.twig', [
+            'controller_name' => 'CreateBookController',
             'books' => $repo->findAll(),
         ]);
     }
 
-    /**
-     * @Route("/about}", name="app_about")
-     */
+    #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
         return $this->render('about.html.twig', [
         ]);
     }
 
-    #[Route('/create', name: 'app_create', methods: ['GET','POST'])]
+    /**
+     * @Route("/catalogues", name="app_catalogues")
+     */
+    public function catalogue(BookRepository $repo): Response
+    {
+        return $this->render('book/book.html.twig', [
+            'books' => $repo->findAll(),
+        ]);
+    }
+
+    #[Route('/catalogues/create', name: 'app_create', methods: ['GET','POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
         $form = $this->createFormBuilder()
             ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
             ->add('description', TextareaType::class)
@@ -80,7 +88,6 @@ class BookController extends AbstractController
             }
         ;
         return $this->render('book/createbook.html.twig', [
-            'controller_name' => 'CreateBookController',
             'createBook' => $form->createView()
         ]);
     }

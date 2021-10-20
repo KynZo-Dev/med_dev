@@ -39,9 +39,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/employé, roles: ROLE_MODO }
-        - { path: ^/inscrit, roles: ROLE_USER }
+        - { path: ^/employe, roles: ROLE_EMPLOYE }
+        - { path: ^/catalogues, roles: ROLE_INSCRIT}
 
     role_hierarchy:
-        ROLE_MODO: ROLE_USER
-        ROLE_ADMIN: ROLE_MODO
+        ROLE_INSCRIT: ROLE_USER
+        ROLE_EMPLOYE: ROLE_INSCRIT
+        ROLE_ADMIN: ROLE_EMPLOYE

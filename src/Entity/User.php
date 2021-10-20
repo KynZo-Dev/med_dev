@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -57,11 +58,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $adress;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isValid;
 
     public function getId(): ?int
     {
@@ -196,18 +192,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdress(string $adress): self
     {
         $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getisValid(): ?bool
-    {
-        return $this->isValid;
-    }
-
-    public function setisValid(bool $isValid): self
-    {
-        $this->isValid = $isValid;
 
         return $this;
     }
