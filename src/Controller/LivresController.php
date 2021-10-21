@@ -71,6 +71,7 @@ class LivresController extends AbstractController
     #[Route('/{id}', name: 'livres_delete', methods: ['POST'])]
     public function delete(Request $request, Livres $livre): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
         if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($livre);

@@ -3,44 +3,45 @@
 {% block title %}Livres{% endblock %}
 
 {% block body %}
-    <h1>Livres</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Titre</th>
-                <td>{{ livre.Titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ livre.Description }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ livre.Auteur }}</td>
-            </tr>
-            <tr>
-                <th>Genre</th>
-                <td>{{ livre.Genre }}</td>
-            </tr>
-            <tr>
-                <th>Parution</th>
-                <td>{{ livre.Parution ? livre.Parution|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ImgCouverture</th>
-                <td>{{ livre.ImgCouverture }}</td>
-            </tr>
-            <tr>
-                <th>Disponible</th>
-                <td>{{ livre.Disponible ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 class="text-center">Livres</h1>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>ImgCouverture</th>
+                        <td>{{ livre.ImgCouverture }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ livre.Titre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ livre.Description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Auteur</th>
+                        <td>{{ livre.Auteur }}</td>
+                    </tr>
+                    <tr>
+                        <th>Genre</th>
+                        <td>{{ livre.Genre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Parution</th>
+                        <td>{{ livre.Parution ? livre.Parution|date('Y-m-d') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6 mx-auto d-flex">
     {% if is_granted('ROLE_EMPLOYE') %}
-        <a href="{{ path('livres_edit', {'id': livre.id}) }}">edit</a>
+        <a class="btn btn-warning btn-sm" href="{{ path('livres_edit', {'id': livre.id}) }}">Modifier</a>
         {{ include('livres/_delete_form.html.twig') }}
     {% endif %}
-    <a href="{{ path('livres_index') }}">back to list</a>
-    <a href="{{ path('reservations_new') }}">Reserver</a>
+    <a class="btn btn-secondary btn-sm" href="{{ path('livres_index') }}">Retour</a>
+    <a class="btn btn-outline-success btn-sm" href="{{ path('resa_new') }}">Reserver</a>
+    </div>
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resa{% endblock %}
+
+{% block body %}
+    <h1>Resa</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ resa.id }}</td>
+            </tr>
+            <tr>
+                <th>ResaAt</th>
+                <td>{{ resa.ResaAt ? resa.ResaAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ResaMaxAt</th>
+                <td>{{ resa.ResaMaxAt ? resa.ResaMaxAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ResaLongAt</th>
+                <td>{{ resa.ResaLongAt ? resa.ResaLongAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ResaLongMaxAt</th>
+                <td>{{ resa.ResaLongMaxAt ? resa.ResaLongMaxAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('resa_index') }}">back to list</a>
+
+    <a href="{{ path('resa_edit', {'id': resa.id}) }}">edit</a>
+
+    {{ include('resa/_delete_form.html.twig') }}
+{% endblock %}

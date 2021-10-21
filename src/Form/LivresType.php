@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Livres;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,10 @@ class LivresType extends AbstractType
             ->add('Description')
             ->add('Auteur')
             ->add('Genre')
-            ->add('Parution')
+            ->add('Parution', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => ['class' => 'datepicker']
+            ])
             ->add('ImgCouverture')
             ->add('Disponible')
         ;

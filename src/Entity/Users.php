@@ -59,6 +59,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $Anniversaire;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resa::class, mappedBy="Users", orphanRemoval=true)
+     */
+    private $Resas;
+
+    public function __construct()
+    {
+        $this->Resas = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -192,6 +202,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAnniversaire(\DateTimeInterface $Anniversaire): self
     {
         $this->Anniversaire = $Anniversaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resa[]
+     */
+    public function getResas(): Collection
+    {
+        return $this->Resas;
+    }
+
+    public function addResa(Resa $resa): self
+    {
+        if (!$this->Resas->contains($resa)) {
+            $this->Resas[] = $resa;
+            $resa->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResa(Resa $resa): self
+    {
+        if ($this->Resas->removeElement($resa)) {
+            // set the owning side to null (unless already changed)
+            if ($resa->getUsers() === $this) {
+                $resa->setUsers(null);
+            }
+        }
 
         return $this;
     }
