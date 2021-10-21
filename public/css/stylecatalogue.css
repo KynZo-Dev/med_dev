@@ -2,7 +2,7 @@
     display: table;
     height: 10em;
     width: 100%;
-    background-image: url("img/bibliotheque_agde.jpg");
+    background-image: url("../img/bibliotheque_agde.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Book;
+use App\Entity\Livres;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -22,17 +22,13 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Med Dev');
+            ->setTitle('ECF Mediatheque');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-
-        yield MenuItem::section('Books');
-            yield MenuItem::linkToCrud('The Label', 'fas fa-list', Book::class);
-
-        yield MenuItem::section('Users');
-            //yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('The Label', 'fas fa-list', Livres::class);
+        yield MenuItem::linkToCrud('The Label', 'fas fa-list', Users::class);
     }
 }

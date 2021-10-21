@@ -2,34 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Book;
+use App\Entity\Livres;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BookType extends AbstractType
+class LivresType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Title')
-            ->add('ReleaseDate', DateType::class, [
-                'widget' => 'single_text',
-                'html5' => false,
-                'attr' => ['class' => 'js-datepicker'],
-            ])
+            ->add('Titre')
             ->add('Description')
-            ->add('Author')
-            ->add('Kind')
-            ->add('Available')
-            ->add('Picture')
+            ->add('Auteur')
+            ->add('Genre')
+            ->add('Parution')
+            ->add('ImgCouverture')
+            ->add('Disponible')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Book::class,
+            'data_class' => Livres::class,
         ]);
     }
 }

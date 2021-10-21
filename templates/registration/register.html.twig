@@ -9,15 +9,15 @@
 {% block body %}
     <div class="row">
         <div class="col-md-6 mx-auto">
-            <h1 class="mt-5 mb-3 text-center">Register</h1>
+            <h1 class="mt-5 mb-3 text-center">S'enregirster</h1>
             <p class="mb-2 text-center text-muted">Des livres vous attende avec impatience</p>
 
             {{ form_start(registrationForm) }}
                 {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.lastname) }}
-                {{ form_row(registrationForm.firstname) }}
-                {{ form_row(registrationForm.birthdays) }}
-                {{ form_row(registrationForm.adress) }}
+                {{ form_row(registrationForm.Nom) }}
+                {{ form_row(registrationForm.Prenom) }}
+                {{ form_row(registrationForm.Adresse) }}
+                {{ form_row(registrationForm.Anniversaire) }}
                 {{ form_row(registrationForm.plainPassword, {
                     label: 'Password'
                 }) }}

@@ -2,19 +2,19 @@
 
 namespace App\Entity;
 
+use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -40,24 +40,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=80)
-     */
-    private $lastName;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $birthdays;
+    private $Nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adress;
+    private $Prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Adresse;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $Anniversaire;
 
     public function getId(): ?int
     {
@@ -148,56 +148,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstName(): ?string
+    public function getNom(): ?string
     {
-        return $this->firstName;
+        return $this->Nom;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setNom(string $Nom): self
     {
-        $this->firstName = $firstName;
+        $this->Nom = $Nom;
 
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getPrenom(): ?string
     {
-        return $this->lastName;
+        return $this->Prenom;
     }
 
-    public function setLastName(string $lastName): self
+    public function setPrenom(string $Prenom): self
     {
-        $this->lastName = $lastName;
+        $this->Prenom = $Prenom;
 
         return $this;
     }
 
-    public function getBirthdays(): ?\DateTimeInterface
+    public function getAdresse(): ?string
     {
-        return $this->birthdays;
+        return $this->Adresse;
     }
 
-    public function setBirthdays(\DateTimeInterface $birthdays): self
+    public function setAdresse(string $Adresse): self
     {
-        $this->birthdays = $birthdays;
+        $this->Adresse = $Adresse;
 
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getAnniversaire(): ?\DateTimeInterface
     {
-        return $this->adress;
+        return $this->Anniversaire;
     }
 
-    public function setAdress(string $adress): self
+    public function setAnniversaire(\DateTimeInterface $Anniversaire): self
     {
-        $this->adress = $adress;
+        $this->Anniversaire = $Anniversaire;
 
         return $this;
-    }
-
-    public function getFullName(): string
-    {
-        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 }
