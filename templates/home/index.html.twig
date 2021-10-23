@@ -26,7 +26,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('resa_index') }}">Emprunts</a>
                     </li>
-                    {% else %}
+                    {% elseif is_granted('ROLE_USER')%}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('resa_index') }}">Emprunt</a>
                     </li>
@@ -55,12 +55,8 @@
 </style>
 
 <div class="example-wrapper">
-    <h2>Hello {{ controller_name }}! ✅</h2>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/apps/ECF_Mediatheque/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/apps/ECF_Mediatheque/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+    <h2>Bonjour {#{ controller_name }#}!</h2>
+    <h4>Merci de patienter pendeant que l'on vous active votre droit. ✅</br>
+    sinon contacter directement la Médiathèque.</h4>
 </div>
 {% endblock %}

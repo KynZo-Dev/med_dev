@@ -50,51 +50,51 @@
     </nav>
     <main>
         <h2 class="col-12">Catalogues de {{ livres|length }} Livres{#{ pluralize(books|length,'Livre', 'Livres') }#}</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">ImgCouverture</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Auteur</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Parution</th>
+                        <th scope="col">actions</th>
+                        <th scope="col">Reserver</th>
+                    </tr>
+                </thead>
+                {% for livre in livres %}
+                    <tbody  class="table-striped">
                         <tr>
-                            <th scope="col">ImgCouverture</th>
-                            <th scope="col">Titre</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Auteur</th>
-                            <th scope="col">Genre</th>
-                            <th scope="col">Parution</th>
-                            <th scope="col">actions</th>
-                            <th scope="col">Reserver</th>
+                            <td>{{ livre.ImgCouverture }}</td>
+                            <td>{{ livre.Titre }}</td>
+                            <td>{{ livre.Description }}</td>
+                            <td>{{ livre.Auteur }}</td>
+                            <td>{{ livre.Genre }}</td>
+                            <td>{{ livre.Parution ? livre.Parution|date('d-m-Y') : '' }}</td>
+                            <td>
+                            {% if is_granted('ROLE_EMPLOYE') %}
+                                <a class="btn btn-warning btn-sm" href="{{ path('livres_edit', {'id': livre.id}) }}">edit</a>
+                            {% endif %}
+                            <a class="btn btn-info btn-sm" href="{{ path('livres_show', {'id': livre.id}) }}">show</a>
+                            </td>
+                            <td>
+                                {% if livre.disponible > 0 %}
+                                    <button class="btn btn-outline-success btn-sm" type="submit" href="{{ path('resa_new', {'id': livre.id}) }}">disponible</button>
+                                {% else %}
+                                    <button class="btn btn-danger btn-sm disabled" type="button">non disponible</button>
+                                {% endif %}
+                            </td>
                         </tr>
-                    </thead>
-                        {% for livre in livres %}
-                            <tbody  class="table-striped">
-                                <tr>
-                                    <td>{{ livre.ImgCouverture }}</td>
-                                    <td>{{ livre.Titre }}</td>
-                                    <td>{{ livre.Description }}</td>
-                                    <td>{{ livre.Auteur }}</td>
-                                    <td>{{ livre.Genre }}</td>
-                                    <td>{{ livre.Parution ? livre.Parution|date('d-m-Y') : '' }}</td>
-                                    <td>
-                                        {% if is_granted('ROLE_EMPLOYE') %}
-                                        <a class="btn btn-warning btn-sm" href="{{ path('livres_edit', {'id': livre.id}) }}">edit</a>
-                                        {% endif %}
-                                        <a class="btn btn-info btn-sm" href="{{ path('livres_show', {'id': livre.id}) }}">show</a>
-                                    </td>
-                                    <td>
-                                        {% if livre.disponible > 0 %}
-                                            <button class="btn btn-outline-success btn-sm" type="submit" href="{{ path('resa_new', {'id': livre.id}) }}">disponible</button>
-                                        {% else %}
-                                            <button class="btn btn-danger btn-sm disabled" type="button">non disponible</button>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                        {% endfor %}
-                                <tr>
-                                    <td colspan="9">no records found</td>
-                                </tr>
-                            </tbody>
-                        
-                </table>
-            </div>
+                    </tbody>
+                {% else %}
+                    <tr>
+                        <td colspan="9">no records found</td>
+                    </tr>        
+                {% endfor %}
+            </table>
+        </div>
     </main>
 {% endblock %}
 
