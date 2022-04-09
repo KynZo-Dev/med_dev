@@ -3,11 +3,11 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/stylecatalogue.css') }}">
 {% endblock %}
 
 {% block body %}
-<header class="header">
+    <header class="header">
         <h1 class="h1">Médiathèque Chapelle-Curreaux</h1>
     </header>
     <!-- Bar de menu -->
@@ -20,13 +20,13 @@
                 <a class="navbar-brand" href="#"></a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ path('livres_index') }}">Catalogue</a>
+                        <a class="nav-link active" aria-current="page" href="{{ path('livres_index') }}">Catalogue</a>
                     </li>
                     {% if is_granted('ROLE_EMPLOYE') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('resa_index') }}">Emprunts</a>
                     </li>
-                    {% elseif is_granted('ROLE_USER')%}
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('resa_index') }}">Emprunt</a>
                     </li>
@@ -40,11 +40,11 @@
                         </li>
                     {% endif %}
                 </ul>
-                <span class="navbar-text">
-                    <div class="d-flex">
-                        <a class="btn btn-outline-secondary btn-sm" type="button" href="#">Profil</a>
-                    </div>
-                </span>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="text" placeholder="recherche" onkeyup="rechercher()" name="rech" id="rech">
+                    <div id="resultat"></div>
+                    {# <button class="btn btn-outline-success" type="submit">Recherché</button> #}
+                </form>
             </div>
         </div>
     </nav>

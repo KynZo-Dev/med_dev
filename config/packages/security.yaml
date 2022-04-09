@@ -41,7 +41,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/edit, roles: ROLE_EMPLOYE }
         - { path: ^/new, roles: ROLE_EMPLOYE}
-        - { path: ^/livres, roles: ROLE_INSCRIT}
+        - { path: ^/livres, roles: ROLE_USER}
 
     role_hierarchy:
         ROLE_INSCRIT: ROLE_USER

@@ -16,6 +16,7 @@ class LivresController extends AbstractController
     #[Route('/', name: 'livres_index', methods: ['GET'])]
     public function index(LivresRepository $livresRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('livres/index.html.twig', [
             'livres' => $livresRepository->findAll(),
         ]);
@@ -24,6 +25,7 @@ class LivresController extends AbstractController
     #[Route('/new', name: 'livres_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
         $livre = new Livres();
         $form = $this->createForm(LivresType::class, $livre);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class LivresController extends AbstractController
     #[Route('/{id}', name: 'livres_show', methods: ['GET'])]
     public function show(Livres $livre): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_INSCRIT');
         return $this->render('livres/show.html.twig', [
             'livre' => $livre,
         ]);
@@ -53,6 +56,7 @@ class LivresController extends AbstractController
     #[Route('/{id}/edit', name: 'livres_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Livres $livre): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
         $form = $this->createForm(LivresType::class, $livre);
         $form->handleRequest($request);
 
@@ -71,7 +75,7 @@ class LivresController extends AbstractController
     #[Route('/{id}', name: 'livres_delete', methods: ['POST'])]
     public function delete(Request $request, Livres $livre): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+        $this->denyAccessUnlessGranted('ROLE_INSCRIT');
         if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($livre);
